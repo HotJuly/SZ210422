@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <!-- <meta name="viewport" content="initial-scale=0.5,user-scalable=no"> -->
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        img{
+            width:375px;
+            /* width:5rem; */
+            height:187.5px;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:100px">
+        <img src="1.jpg" alt="">
+    </div>
+    <script>
+        /*
+            视口:布局视口,视觉视口,理想视口
+            理想视口:他不是一种真正的视口,他只是一种特殊的状态,当布局视口和视觉视口的宽度一样,
+                    称当前状态为理想视口
+            布局视口:当前页面所具有的所有东西都在布局视口上绘制
+                    html标签就是布局视口
+            视觉视口:当前用户可以看到多少内容都取决于视觉视口
+                    手机屏幕就是视觉视口(设备独立像素)
+
+            
+
+            如何获取到布局视口宽度?
+                document.documentElement.clientWidth
+            
+            默认情况下,网页的布局视口宽度为980px
+            如何改变布局视口大小?
+                可以通过meta[name=viewport]标签进行控制
+                    width=device-width可以让当前布局视口的宽度变成和视觉视口一样宽
+                    initial-scale = 视觉视口宽度/布局视口宽度
+                    如果同时具有以上两个属性,就看谁计算出来的宽度更宽,就以谁为准
+        */
+
+        /*
+            需求:让图片无论任何设备,宽度都是屏幕的一半(50%)
+            解决:
+                1.将图片宽度设置为50%(父节点不是body无效)
+                2.vw和vh    100vw=屏幕100%宽度 100vh=屏幕100%高度
+                    小结:我们就像找一个全局可见的单位,这个单位的宽度会随着视觉视口的大小发生变化
+                3.rem
+                    rem单位全局可见,他的大小等于html标签的font-size
+        
+        */
+
+        // 现在处于理想视口状态,布局视口宽度等于视觉视口宽度,所以这里的width可以理解为视觉视口宽度
+        var width = document.documentElement.clientWidth;
+        // console.log(width)
+
+        // 将屏幕的宽度10等分,没一个fontSize都是屏幕的百分之十
+        // 被除数可以为任意值,但是不能太大,否则会导致浏览器最小字体生效,样式错乱
+        var fontSize = width/10;
+
+        //将rem单位的大小设置为fontSize的大小
+        document.documentElement.style.fontSize = fontSize+"px";
+
+
+        // viewport适配
+        // var width = 750;
+
+        // var viewWidth = document.documentElement.clientWidth;
+
+        // var scale = viewWidth / width;
+
+        // var vw = document.querySelector('meta[name=viewport]');
+
+        // vw.content = `initial-scale=${scale},user-scalable=no`;
+    </script>
+</body>
+</html>
