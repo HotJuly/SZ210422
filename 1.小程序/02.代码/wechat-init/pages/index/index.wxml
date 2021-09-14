@@ -6,13 +6,19 @@
   button->类似于button,是一个行内块元素
  -->
 <view class="indexContainer">
-  <image class="dazuo" src="{{userInfo.avatarUrl}}"></image>
+  <open-data type="userAvatarUrl"></open-data>
+  <open-data type="userNickName"></open-data>
+  <!-- <image class="dazuo" src="{{userInfo.avatarUrl}}"></image> -->
   <text bindtap="changeMsg" class="username">欢迎,{{userInfo.nickName}}</text>
   <view  bindtap="handleParent">
     <!-- <button class="welcome"  bindtap="handleClick">欢迎来到尚硅谷</button> -->
-    <button class="welcome" 
+    <!-- <button class="welcome" 
     open-type="getUserInfo"
     bindgetuserinfo="getUserInfo"
-    >欢迎来到尚硅谷</button>
+    >欢迎来到尚硅谷</button> -->
+    <!-- <button class="welcome" 
+    bindtap="getUserProfile"
+    >欢迎来到尚硅谷</button> -->
+    <button bindtap="getCity">欢迎来到{{city}}尚硅谷</button>
   </view>
 </view>
