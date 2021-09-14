@@ -7,8 +7,8 @@
  -->
 <view class="indexContainer">
   <image class="dazuo" src="/static/images/dazuo.jpeg"></image>
-  <text class="username">欢迎,{{msg}}</text>
-  <view  capture-catch:tap="handleParent">
-    <button class="welcome"  capture-catch:tap="handleClick">欢迎来到尚硅谷</button>
+  <text bindtap="changeMsg" class="username">欢迎,{{msg}}</text>
+  <view  bindtap="handleParent">
+    <button class="welcome"  bindtap="handleClick">欢迎来到尚硅谷</button>
   </view>
 </view>

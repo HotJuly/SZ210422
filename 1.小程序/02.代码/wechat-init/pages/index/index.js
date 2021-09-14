@@ -8,9 +8,20 @@ Page({
   data: {
     msg:"我是初始化的数据"
   },
+  changeMsg(){
+    this.setData({
+      msg:666
+    })
+  },
 
   handleClick(){
-    console.log('handleClick')
+    // console.log('handleClick')
+    wx.navigateTo({
+      url: '/pages/log/log',
+    })
+    // wx.redirectTo({
+    //   url: '/pages/log/log'
+    // })
   },
 
   handleParent() {
