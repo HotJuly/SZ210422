@@ -9,6 +9,14 @@ Page({
     msg:"我是初始化的数据"
   },
 
+  handleClick(){
+    console.log('handleClick')
+  },
+
+  handleParent() {
+    console.log('handleParent')
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
