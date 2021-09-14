@@ -1,3 +1,10 @@
+<!-- 
+  view->类似于div,是一个块级元素,独占一行
+  image->类似于img,用于显示图片信息
+  text->类似于span,是一个行内元素,一行显示多个
+    注意:text组件在小程序中,是弟中弟,它内部只能嵌套文本
+  button->类似于button,是一个行内块元素
+ -->
 <view class="indexContainer">
   <image class="dazuo" src="/static/images/dazuo.jpeg"></image>
   <text class="username">欢迎,{{msg}}</text>
