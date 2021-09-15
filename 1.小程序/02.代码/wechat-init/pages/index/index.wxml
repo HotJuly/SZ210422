@@ -12,13 +12,20 @@
   <text bindtap="changeMsg" class="username">欢迎,{{userInfo.nickName}}</text>
   <view  bindtap="handleParent">
     <!-- <button class="welcome"  bindtap="handleClick">欢迎来到尚硅谷</button> -->
-    <!-- <button class="welcome" 
+
+    
+    <button class="welcome" 
+    wx:if="{{canIUse}}"
+    bindtap="getUserProfile"
+    >欢迎来到尚硅谷</button>
+
+    <button class="welcome" 
+    wx:else
     open-type="getUserInfo"
     bindgetuserinfo="getUserInfo"
-    >欢迎来到尚硅谷</button> -->
-    <!-- <button class="welcome" 
-    bindtap="getUserProfile"
-    >欢迎来到尚硅谷</button> -->
-    <button bindtap="getCity">欢迎来到{{city}}尚硅谷</button>
+    >欢迎来到尚硅谷</button>
+
+
+    <!-- <button bindtap="getCity">欢迎来到{{city}}尚硅谷</button> -->
   </view>
 </view>

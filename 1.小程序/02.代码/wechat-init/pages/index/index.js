@@ -9,7 +9,8 @@ Page({
   data: {
     msg:"我是初始化的数据",
     userInfo:{},
-    city:""
+    city:"",
+    canIUse:false
   },
 
   getCity(){
@@ -70,6 +71,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // debugger
     // console.log('msg',this.data.msg)
     // this.data.msg="我是修改之后的数据"
     // this.setData({
@@ -86,17 +88,30 @@ Page({
     //   msg: "我是修改之后的数据3"
     // })
 
-    // 通过js获取到用户的信息,并且更新到data中即可
-    wx.getUserInfo({
-      success:(detail)=>{
-        // console.log('success', detail)
-        this.setData({
-          userInfo: detail.userInfo
-        })
-      }
-    })
 
     // console.log('wx.getUserProfile', wx.getUserProfile)
+
+    // console.log(wx.canIUse("getUserProfile"))
+    const canIUse = wx.canIUse("getUserProfile");
+    if (canIUse){
+      this.setData({
+        canIUse
+      });
+
+      // 能进入这里说明用户的微信基础库版本高于2.15.0
+      // 获取本地存储Storage中的用户信息
+    } else {
+      // 能进入这里说明用户的微信基础库版本低于2.15.0
+    // 通过js获取到用户的信息,并且更新到data中即可
+      wx.getUserInfo({
+        success:(detail)=>{
+          // console.log('success', detail)
+          this.setData({
+            userInfo: detail.userInfo
+          })
+        }
+      })
+    }
   },
 
   /**
