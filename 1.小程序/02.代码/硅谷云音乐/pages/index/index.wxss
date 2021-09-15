@@ -47,6 +47,37 @@
   border-radius: 10rpx;
 }
 
+.recommendContainer .recommendScroll{
+  display:flex;
+}
+
+.recommendContainer .recommendScroll .recommendItem{
+  margin-right:20rpx;
+  width:200rpx;
+}
+
+.recommendContainer .recommendScroll .recommendItem .recommendImg{
+  width:200rpx;
+  height:200rpx;
+  border-radius: 20rpx;
+}
+
+.recommendContainer .recommendScroll .recommendItem .recommendTitle{
+  /* 需求:单行文本溢出隐藏,并显示省略号 */
+  /* white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis; */
+
+  /*需求:多行文本溢出隐藏,并显示省略号*/
+  overflow:hidden;
+  display:-webkit-box;
+
+  /* 告知盒模型,几行之后需要溢出隐藏 */
+  -webkit-line-clamp:2;
+  /* 告知盒模型,当前文本内容的排列方向 */
+  -webkit-box-orient:vertical;
+}
+
 
 /*
 推荐区域结束
