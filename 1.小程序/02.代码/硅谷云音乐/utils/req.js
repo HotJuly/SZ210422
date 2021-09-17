@@ -28,7 +28,11 @@ export default function(url,data={},method="GET"){
       success: (res) => {
         // console.log('res', res)
         // result = res.data
+
+        // res是响应报文,其中包括了响应头,cookie,响应体等数据
+        // 类似于axios中,响应拦截器中return response.data;
         resolve(res.data)
+
         // this.setData({
         //   banners: res.data.banners
         // })

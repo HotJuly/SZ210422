@@ -9,7 +9,10 @@ Page({
     banners:[],
 
     // 用于存储推荐歌曲区域数据
-    recommendList:[]
+    recommendList:[],
+
+    // 用于存储排行榜区域数据
+    topList:[]
   },
 
   /**
@@ -44,6 +47,7 @@ Page({
     // 原因:当前微信小程序环境不支持async和await
     // 解决:
 
+    //用于请求轮播图数据
     let result = await req('/banner',{type:2});
     // console.log('result', result)
     this.setData({
@@ -51,6 +55,7 @@ Page({
     })
 
 
+    //用于请求推荐歌曲数据
     let result1 = await req('/personalized');
     this.setData({
       recommendList: result1.result
@@ -65,6 +70,26 @@ Page({
     //     })
     //   }
     // })
+
+
+    //用于请求排行榜数据
+    const topList = [];
+    const topArr=[1,2,6,23];
+    let index=0;
+
+    while (index<topArr.length) {
+      let obj;
+      let { playlist: { id, name, tracks } } = await req('/top/list', { idx: topArr[index++] });
+      obj = {
+        id,
+        name,
+        list: tracks.slice(0, 3)
+      }
+      topList.push(obj);
+      this.setData({
+        topList
+      })
+    }
   },
 
   /**

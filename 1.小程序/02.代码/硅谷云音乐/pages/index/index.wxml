@@ -12,6 +12,7 @@
     wx:for-item="banner"
     wx:key="bannerId"
     >
+      <!-- {{banner}} -->
       <image class="bannerImg" src="{{banner.pic}}"></image>
     </swiper-item>
   </swiper>
@@ -57,10 +58,29 @@
         <view class="recommendTitle">{{item.name}}</view>
       </view>
     </scroll-view>
+  </view>
 
-    <view class="topContainer">
-      <NavHeader title="排行榜" moreTitle="热歌风向标"/>
-    </view>
+  <view class="topContainer">
+    <NavHeader title="排行榜" moreTitle="热歌风向标"/>
+    <swiper class="topSwiper" next-margin="50">
+      <swiper-item
+      wx:for="{{topList}}"
+      wx:for-item="topItem"
+      wx:key="id"
+      >
+        <view class="topName">{{topItem.name}}</view>
+        <view 
+        class="song"
+        wx:for="{{topItem.list}}"
+        wx:for-item="song"
+        wx:key="id"
+        >
+          <image class="songImg" src="{{song.al.picUrl}}"></image>
+          <text class="songIndex">{{index+1}}</text>
+          <view class="songName">{{song.al.name}}</view>
+        </view>
+      </swiper-item>
+    </swiper>
   </view>
 
 </view>
