@@ -6,7 +6,8 @@ Page({
    */
   data: {
     moveDistance:0,
-    moveTransition:""
+    moveTransition:"",
+    userInfo:{}
   },
 
   // 用于监视用户点击之后,跳转login页面操作
@@ -50,7 +51,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // const userInfo = JSON.parse(wx.getStorageSync("userInfo")||'{}');
+    // // console.log(userInfo)
+    // this.setData({
+    //   userInfo
+    // })
   },
 
   /**
@@ -65,6 +70,11 @@ Page({
    */
   onShow: function () {
 
+    const userInfo = JSON.parse(wx.getStorageSync("userInfo") || '{}');
+    // console.log(userInfo)
+    this.setData({
+      userInfo
+    })
   },
 
   /**
