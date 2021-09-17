@@ -54,7 +54,7 @@
       wx:for="{{recommendList}}"
       wx:key="id"
       >
-        <image class="recommendImg" src="{{item.picUrl}}"></image>
+        <image class="recommendImg" lazy-load src="{{item.picUrl}}"></image>
         <view class="recommendTitle">{{item.name}}</view>
       </view>
     </scroll-view>
@@ -75,7 +75,7 @@
         wx:for-item="song"
         wx:key="id"
         >
-          <image class="songImg" src="{{song.al.picUrl}}"></image>
+          <image class="songImg" lazy-load src="{{song.al.picUrl}}"></image>
           <text class="songIndex">{{index+1}}</text>
           <view class="songName">{{song.al.name}}</view>
         </view>

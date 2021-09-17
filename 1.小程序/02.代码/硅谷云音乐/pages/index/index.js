@@ -48,17 +48,21 @@ Page({
     // 解决:
 
     //用于请求轮播图数据
-    let result = await req('/banner',{type:2});
+    let result = req('/banner',{type:2});
     // console.log('result', result)
-    this.setData({
-      banners: result.banners
+    result.then((res) => {
+      this.setData({
+        banners: res.banners
+      })
     })
 
 
     //用于请求推荐歌曲数据
-    let result1 = await req('/personalized');
-    this.setData({
-      recommendList: result1.result
+    let result1 = req('/personalized');
+    result1.then((res) => {
+      this.setData({
+        recommendList: res.result
+      })
     })
 
     // wx.request({
@@ -77,17 +81,23 @@ Page({
     const topArr=[1,2,6,23];
     let index=0;
 
+
+    //发送请求一定是同步发送
+    //接受响应,执行成功之后的回调函数,(默认是异步的,可以同步也可以异步)
     while (index<topArr.length) {
       let obj;
-      let { playlist: { id, name, tracks } } = await req('/top/list', { idx: topArr[index++] });
-      obj = {
-        id,
-        name,
-        list: tracks.slice(0, 3)
-      }
-      topList.push(obj);
-      this.setData({
-        topList
+      let topPromise =req('/top/list', { idx: topArr[index++] });
+
+      topPromise.then(({ playlist: { id, name, tracks } }) => {
+        obj = {
+          id,
+          name,
+          list: tracks.slice(0, 3)
+        }
+        topList.push(obj);
+        this.setData({
+          topList
+        })
       })
     }
   },
