@@ -9,6 +9,13 @@ Page({
     moveTransition:""
   },
 
+  // 用于监视用户点击之后,跳转login页面操作
+  toLogin(){
+    wx.navigateTo({
+      url: '/pages/login/login',
+    })
+  },
+
   // 用于监视用户手指按下操作
   handleTouchStart(event) {
     // event.touches[0].clientY代表手指当前的Y轴坐标

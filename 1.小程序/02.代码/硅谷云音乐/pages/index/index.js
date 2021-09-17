@@ -92,7 +92,9 @@ Page({
         obj = {
           id,
           name,
-          list: tracks.slice(0, 3)
+          list: tracks.slice(0, 3).map((song)=>{
+            return song.al
+          })
         }
         topList.push(obj);
         this.setData({

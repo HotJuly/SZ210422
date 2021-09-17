@@ -75,9 +75,9 @@
         wx:for-item="song"
         wx:key="id"
         >
-          <image class="songImg" lazy-load src="{{song.al.picUrl}}"></image>
+          <image class="songImg" lazy-load src="{{song.picUrl}}"></image>
           <text class="songIndex">{{index+1}}</text>
-          <view class="songName">{{song.al.name}}</view>
+          <view class="songName">{{song.name}}</view>
         </view>
       </swiper-item>
     </swiper>
