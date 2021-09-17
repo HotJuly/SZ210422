@@ -1,0 +1,68 @@
+/*
+  wxs文件和js文件区别
+  写的代码都是js
+  wxs文件缺点:
+    1.该文件中只能使用ES5语法
+    2.wxs文件中this不是组件实例对象
+    3.不能使用npm包
+
+  wxs文件优点:
+    1.操作组件非常方便,效率很高
+    使用场景:适用于频繁与页面进行交互操作
+ */
+
+var startY;
+var cover;
+
+function handleTouchStart(event,instance) {
+  // event.touches[0].clientY代表手指当前的Y轴坐标
+  // console.log('handleTouchStart', event)
+  startY = event.touches[0].clientY;
+  // this.setData({
+  //   moveTransition: ""
+  // })
+
+  // 找到页面上的元素,并控制他的移动
+  cover = instance.selectComponent('.cover-container');
+
+  cover.setStyle({
+    transition: ""
+  })
+}
+
+// 用于监视用户手指移动操作
+function handleTouchMove(event,instance){
+  //事件回调函数会接受第二个参数,是当前组件的实例对象
+
+  // console.log('handleTouchMove',event.touches[0].clientY)
+  var moveY = event.touches[0].clientY;
+  var moveDistance = moveY - startY;
+  // console.log('moveDistance', moveDistance)
+  if (moveDistance > 80 || moveDistance < 0) return;
+  // this.setData({
+  //   moveDistance
+  // })
+
+  // cover.style.color="red"
+  cover.setStyle({
+    transform: "translateY(" + moveDistance +"rpx)"
+  })
+}
+
+function handleTouchEnd(){
+  // console.log('handleTouchEnd')
+  // this.setData({
+  //   moveDistance: 0,
+  //   moveTransition: "transform 1s"
+  // })
+  cover.setStyle({
+    transform: "translateY(0rpx)",
+    transition: "transform 1s"
+  })
+}
+
+module.exports={
+  handleTouchStart: handleTouchStart,
+  handleTouchMove: handleTouchMove,
+  handleTouchEnd: handleTouchEnd
+}

@@ -1,3 +1,4 @@
+<wxs src="./touchEvent.wxs" module="touchEvent" />
 <view class="personalContainer">
   <view class="user-section">
     <image class="bg" src="/static/images/personal/bgImg2.jpg"></image>
@@ -28,12 +29,19 @@
   </view>
 
 
-  <view 
+  <!-- <view 
   class="cover-container"
   bindtouchstart="handleTouchStart"
   bindtouchmove="handleTouchMove"
   bindtouchend="handleTouchEnd"
   style="transform:translateY({{moveDistance}}rpx);transition:{{moveTransition}}"
+  > -->
+  
+  <view 
+  class="cover-container"
+  bindtouchstart="{{touchEvent.handleTouchStart}}"
+  bindtouchmove="{{touchEvent.handleTouchMove}}"
+  bindtouchend="{{touchEvent.handleTouchEnd}}"
   >
     <image class="arc" src="/static/images/personal/arc.png"></image>
     <!-- 个人中心导航 -->
