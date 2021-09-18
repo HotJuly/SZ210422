@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            async函数的返回值是一个全新的promise对象
+                如何修改这个promise对象的状态
+                    pending
+                    resolved
+                        只要async函数的代码全部执行结束,返回的promise对象就会变成成功状态
+                    rejected
+                        只要async函数的代码出现错误,返回的promise对象就会变成失败状态
+
+            async其实是promise的语法糖,await之后的代码会被放到.then中
+            注意:如果async函数的返回值不是promise对象,该数据会作为async返回的promise的结果
+        */
+       var promise;
+        async function a(){
+            console.log(2)
+            promise = new Promise((resolve,reject)=>{
+                console.log(3);
+                setTimeout(()=>{
+                    console.log(4)
+                    resolve();
+                },0)
+            })
+            await promise;
+            throw new Error('xixix')
+            console.log(5)
+            return 123;
+        }
+        console.log(1)
+        var b = a();
+        console.log('b',b,b===promise)
+
+        console.log(6)
+    </script>
+</body>
+</html>

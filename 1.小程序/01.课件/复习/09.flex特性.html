@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .wrap{
+            display:flex;
+            width:400px;
+            height:400px;
+            background-color: red;
+        }
+        .box{
+            width:100px;
+            height:100px;
+        }
+        .box1{
+            background-color: orange;
+        }
+        .box2{
+            background-color: green;
+        }
+        .box3{
+            background-color: yellow;
+        }
+        .box4{
+            background-color: blue;
+        }
+        .box5{
+            background-color: black;
+        }
+        .inner{
+            width:100px;
+            height:50px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        flex盒模型会压缩直系子元素
+        压缩也有下限,下限就是直系子元素内部最大的内容
+     -->
+    <div class="wrap">
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+        <div class="box box3"></div>
+        <div class="box box4"></div>
+        <div class="box box5">
+            <div class="inner"></div>
+        </div>
+    </div>
+</body>
+</html>

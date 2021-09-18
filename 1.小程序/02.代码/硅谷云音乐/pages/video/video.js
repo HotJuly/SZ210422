@@ -15,8 +15,19 @@ Page({
     navId:null
   },
 
+  // 用于请求对应的标签下的视频列表数据
+  async getVideoList(){
+    let result1 = await req('/video/group', { id: this.data.navId });
+    // console.log(2)
+    this.setData({
+      videoList: result1.datas.map((item) => {
+        return item.data
+      })
+    })
+  },
+
   // 用于监视用户点击导航区域操作,切换下划线效果
-  changeNavId(event){
+  async changeNavId(event){
     // 此处具有的问题:event.target指向的是当前事件触发过程中,最内层的子元素
     // console.log('changeNavId', event.currentTarget.dataset.id)
     const navId = event.currentTarget.dataset.id;
@@ -24,8 +35,17 @@ Page({
     // 1.组件通过自定义属性,将每个组件的id传入到当前事件回调函数内部
     // 2.获取每个组件的id,并更新到data中
     this.setData({
-      navId
+      navId,
+      videoList:[]
     })
+
+    wx.showLoading({
+      title:"正在加载..."
+    })
+    // console.log(1)
+    await this.getVideoList();
+    // console.log(3)
+    wx.hideLoading();
   },
 
   /**
@@ -57,9 +77,7 @@ Page({
       navId: result.data[0].id
     })
 
-
-    let result1 = await req('/video/group',{id:this.data.navId});
-    console.log('result1',result1)
+    this.getVideoList();
   },
 
   /**
