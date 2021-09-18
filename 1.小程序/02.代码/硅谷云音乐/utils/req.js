@@ -25,11 +25,27 @@ export default function(url,data={},method="GET"){
       url: config.mpHost + url,
       data,
       method,
+      header:{
+        Cookie:wx.getStorageSync("cookie")
+      },
       success: (res) => {
         // console.log('res', res)
         // result = res.data
 
         // res是响应报文,其中包括了响应头,cookie,响应体等数据
+        // res上具有一个cookies属性,数据类型为数组,内部存放所有的cookie
+        // 登录接口返回的cookie具有四条,我们只保留MUSIC_U开头的cookie
+        // console.log(1, 'abc'.startsWith('a'))
+        // if (url === "/login/cellphone") {
+        if(data._isLogin){
+          wx.setStorage({
+            key: "cookie",
+            data: res.cookies.find((cookie) => {
+              return cookie.startsWith('MUSIC_U');
+            })
+          })
+        }
+
         // 类似于axios中,响应拦截器中return response.data;
         resolve(res.data)
 

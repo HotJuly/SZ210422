@@ -34,7 +34,7 @@ Page({
     }
 
     // 3.发送请求
-    let result = await req('/login/cellphone',{phone,password});
+    let result = await req('/login/cellphone',{phone,password,_isLogin:true});
     /* 
       手机号错误
         该账号不存在 501
@@ -42,7 +42,7 @@ Page({
       密码错误  502
       成功  200
     */
-    console.log('result', result)
+    // console.log('result', result)
     const code = result.code;
     // 4.成功做什么
     // 5.失败做什么

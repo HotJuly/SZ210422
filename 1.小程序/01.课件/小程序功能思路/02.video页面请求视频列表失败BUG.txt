@@ -1,0 +1,10 @@
+错误原因:因为小程序不支持Cookie,不会自动保存cookie和发送cookie
+解决方案:需要我们自己实现cookie的保存和发送
+	1.将cookie数据保存到Storage中
+		注意:其实每个接口都返回了cookie,但是我们需要保存的是登录接口的cookie
+		流程:
+			1.在req函数的成功回调中需要保存cookie数据
+			2.只保留登录接口的cookie
+			3.只保留以MUSIC_U开头的cookie
+	2.当每次发送请求的时候,自动携带cookie
+		我们可以在封装req函数的时候,配置请求头信息
