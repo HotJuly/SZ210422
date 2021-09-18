@@ -66,6 +66,41 @@
 
     <view class="playContent">
         <view class="noData">暂时没有数据</view>
+        <!-- <scroll-view class="playScroll" enable-flex scroll-x>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+          <view>
+            <image class="playImg" src="/static/images/dazuo.jpeg"></image>
+          </view>
+        </scroll-view> -->
       </view>
 
     <view class="cardList">

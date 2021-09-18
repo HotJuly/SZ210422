@@ -10,6 +10,7 @@ Page({
     password:""
   },
 
+  // 监视用户点击登录按钮
   async handleLogin(){
     // 1.收集数据
     const { phone , password } = this.data;
@@ -132,6 +133,7 @@ Page({
 
     // 用于获取当前触发该事件的标签身份
     const type = event.target.dataset.type;
+    console.log(event)
     this.setData({
       [type]: event.detail.value
     })
