@@ -68,6 +68,7 @@
   在calc中,减号前后必须具有空格,否则计算会失效
    */
   height:calc(100vh - 72rpx - 100rpx - 40rpx);
+  /* height:calc(100vh - 72rpx - 100rpx); */
 }
 
 .videoList .content {

@@ -28,6 +28,7 @@
   refresher-enabled
   refresher-triggered="{{isTrigger}}"
   bindrefresherrefresh="handlePullDown"
+  bindscrolltolower="handlerScrollToLower"
   >
     <view 
     class="videoItem"
@@ -35,11 +36,20 @@
     wx:key="vid"
     >
       <video 
+      wx:if="{{item.vid===currentId}}"
       id="{{item.vid}}"
       class="common" 
       src="{{item.urlInfo.url}}"
       bindplay="handlePlay"
       ></video>
+
+      <image
+      wx:else
+      id="{{item.vid}}"
+      class="common" 
+      src="{{item.coverUrl}}"
+      bindtap="handleImgTap"
+      ></image>
       <view class="content">{{item.title}}</view>
       <view class="footer">
         <image class="avatar" src="{{item.creator.avatarUrl}}"></image>

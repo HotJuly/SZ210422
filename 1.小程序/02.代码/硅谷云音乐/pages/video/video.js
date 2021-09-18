@@ -15,7 +15,44 @@ Page({
     navId:null,
 
     // 用于控制scroll-view组件,下拉动画的开关
-    isTrigger:false
+    isTrigger:false,
+
+    // 用于控制页面上video组件的显示隐藏
+    currentId:null
+  },
+
+  // 用于监视用户点击图片操作,并切换对应的视频标签进行显示播放
+  handleImgTap(event){
+    console.log('handleImgTap')
+
+    // 1.将对应的video标签显示出来
+    const vid = event.currentTarget.id;
+
+    // setData可以传入第二个实参,数据类型是函数
+    // 该函数会在页面更新结束之后才执行
+    this.setData({
+      currentId:vid
+    },()=>{
+      // 通过image的id属性,找到页面上显示的对应的video组件,并控制他自动播放
+      const videoContext = wx.createVideoContext(vid);
+      videoContext.play();
+    })
+
+    
+  },
+
+  // 用于监视用户上拉scroll-view组件触底操作
+  handlerScrollToLower(){
+    // console.log('handlerScrollToLower')
+    setTimeout(()=>{
+
+      let newVideoList = [...this.data.videoList, ...this.data.videoList.slice(0, 8)];
+
+      this.setData({
+        videoList: newVideoList
+      })
+
+    },2000)
   },
 
   // 用于监视用户下拉scroll-view组件操作
@@ -153,7 +190,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    console.log('onReachBottom')
   },
 
   /**
