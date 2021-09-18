@@ -155,6 +155,34 @@ Page({
       此处注意:tabBar页面具有一个特点,就是加载过一次之后,不会销毁,所以选择生命周期需要慎重
      */
 
+    /*
+      每次进入video页面,需要检测用户是否已经登录,如果没有登录就弹出模态对话框,控制用户跳转
+     */
+    const cookie = wx.getStorageSync("cookie");
+    if (!cookie){
+      wx.showModal({
+        title: '请先登录',
+        content: '该功能需要登陆之后才能使用',
+        confirmText:"去登陆",
+        cancelText:"回到首页",
+        success({confirm}){
+          // console.log('success', res)
+          if (confirm){
+            // 能进入这里,说明用户点击了确定按钮
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          } else {
+            // 能进入这里,说明用户点击了取消按钮
+            wx.switchTab({
+              url: '/pages/index/index',
+            })
+          }
+        }
+      })
+      return;
+    }
+
     let result = await req('/video/group/list');
     // console.log('result',result)
     this.setData({
@@ -196,7 +224,35 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function ({from,target}) {
+    console.log('onShareAppMessage', from, target)
+    // 1.需要分清当前触发事件回调函数的渠道
+    // 当用户点击右上角转发按钮, 转发内容应该是当前小程序logo和名称
+    // 当用户点击button按钮实现转发, 转发内容应该是当前视频宣传图和视频名称
 
+    // 通过当前事件回调函数的实参,可以解构出from属性
+    // 如果from属性是menu就是通过右上角转发进入的
+    // 如果from属性是button就是通过button组件进入的
+
+    // target可以获取到button组件的event.target
+
+    // 此事件处理函数需要 return 一个 Object，用于自定义转发内容
+    if(from==="button"){
+      const {imageurl,title} = target.dataset;
+      // 自定义属性不支持驼峰命名法,会自动转为全小写
+      // console.log(target.dataset)
+      return {
+        title,
+        path: "/pages/video/video",
+        imageUrl: imageurl
+      }
+    }else{
+      // 能进入这里,就说明是通过右上角转发按钮触发的
+      return{
+        title:"硅谷云音乐",
+        path:"/pages/index/index",
+        imageUrl:"/static/images/dazuo.jpeg"
+      }
+    }
   }
 })
