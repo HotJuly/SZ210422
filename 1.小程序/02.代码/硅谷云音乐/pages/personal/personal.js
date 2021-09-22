@@ -69,7 +69,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
     const userInfo = JSON.parse(wx.getStorageSync("userInfo") || '{}');
     // console.log(userInfo)
     this.setData({

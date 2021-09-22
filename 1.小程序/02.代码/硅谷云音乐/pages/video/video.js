@@ -1,5 +1,6 @@
 // pages/video/video.js
 import req from '../../utils/req.js';
+import hasPermission from '../../utils/hasPermission.js'
 Page({
 
   /**
@@ -158,30 +159,32 @@ Page({
     /*
       每次进入video页面,需要检测用户是否已经登录,如果没有登录就弹出模态对话框,控制用户跳转
      */
-    const cookie = wx.getStorageSync("cookie");
-    if (!cookie){
-      wx.showModal({
-        title: '请先登录',
-        content: '该功能需要登陆之后才能使用',
-        confirmText:"去登陆",
-        cancelText:"回到首页",
-        success({confirm}){
-          // console.log('success', res)
-          if (confirm){
-            // 能进入这里,说明用户点击了确定按钮
-            wx.navigateTo({
-              url: '/pages/login/login',
-            })
-          } else {
-            // 能进入这里,说明用户点击了取消按钮
-            wx.switchTab({
-              url: '/pages/index/index',
-            })
-          }
-        }
-      })
-      return;
-    }
+    // const cookie = wx.getStorageSync("cookie");
+    // if (!cookie){
+    //   wx.showModal({
+    //     title: '请先登录',
+    //     content: '该功能需要登陆之后才能使用',
+    //     confirmText:"去登陆",
+    //     cancelText:"回到首页",
+    //     success({confirm}){
+    //       // console.log('success', res)
+    //       if (confirm){
+    //         // 能进入这里,说明用户点击了确定按钮
+    //         wx.navigateTo({
+    //           url: '/pages/login/login',
+    //         })
+    //       } else {
+    //         // 能进入这里,说明用户点击了取消按钮
+    //         wx.switchTab({
+    //           url: '/pages/index/index',
+    //         })
+    //       }
+    //     }
+    //   })
+    //   return;
+    // }
+
+    if (!hasPermission())return;
 
     let result = await req('/video/group/list');
     // console.log('result',result)
