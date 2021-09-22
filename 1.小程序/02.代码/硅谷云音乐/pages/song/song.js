@@ -1,4 +1,5 @@
 // pages/song/song.js
+const appInstance = getApp();
 import req from '../../utils/req.js';
 Page({
 
@@ -14,7 +15,7 @@ Page({
 
   // 用于监视用户点击播放按钮操作
   async handlePlay(){
-    console.log('handlePlay')
+    // console.log('handlePlay')
 
     // const { data: [{ url }] } = await req('/song/url', { id: this.data.songId });
     const result = await req('/song/url', { id: this.data.songId });
@@ -25,10 +26,22 @@ Page({
     // 如果isPlay状态为false,就代表当前页面没有播放或者歌曲暂停了
     // 如果isPlay状态为true,就代表当前页面正在播放歌曲
     if (!this.data.isPlay) {
+      //能进入到这里,说明当前背景音频没有在播放
       backgroundAudioManager.src = url;
       backgroundAudioManager.title = this.data.songObj.name;
-    }else{
+
+      // 将当前正在播放的歌曲id保存到app对象身上
+      appInstance.globalData.audioId = this.data.songId;
+      // 将当前背景音频的歌曲的状态保存到app对象身上
+      appInstance.globalData.playState = true;
+
+    } else {
+      //能进入到这里,说明当前背景音频正在播放
       backgroundAudioManager.pause();
+
+      // 此处不需要再次缓存当前歌曲id,因为能进入到这里,说明之前一定经过了上面的播放逻辑
+      // 将当前背景音频的歌曲的状态保存到app对象身上
+      appInstance.globalData.playState = false;
     }
 
     this.setData({
@@ -41,6 +54,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad:async function (options) {
+    // 尝试读取app实例对象身上的msg数据
+    console.log('globalData1', appInstance.a.msg)
+    appInstance.a.msg="我是全局修改之后的数据"
+    console.log('globalData2', appInstance.a.msg)
+
+
     // console.log('options', options)
     // query传参是拼接在路径中的,而路径具有长度限制
     // 当前直接传递歌曲信息对象,由于对象体积太大,导致传输数据丢失
@@ -60,6 +79,14 @@ Page({
     wx.setNavigationBarTitle({
       title:this.data.songObj.name
     })
+
+    // 当用户进入song页面时,如果背景音频正在播放的歌曲和当前页面是同一首歌,页面C3自动进入播放状态
+    const {playState,audioId} = appInstance.globalData;
+    if (playState && audioId===this.data.songId){
+      this.setData({
+        isPlay:true
+      })
+    }
   },
 
   /**
