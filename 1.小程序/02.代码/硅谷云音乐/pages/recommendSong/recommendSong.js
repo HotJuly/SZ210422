@@ -1,4 +1,6 @@
 // pages/recommendSong/recommendSong.js
+import PubSub from 'pubsub-js';
+
 import hasPermission from '../../utils/hasPermission.js'
 import req from '../../utils/req.js'
 Page({
@@ -9,7 +11,8 @@ Page({
   data: {
     day:"--",
     month:"--",
-    recommendList:[]
+    recommendList:[],
+    currentIndex:null
   },
 
   // 用于监视用户点击歌曲列表之后,跳转song页面操作
@@ -19,6 +22,14 @@ Page({
 
     // 注意:自定义属性大写无效,他会自动将属性名转为小写
     const songId = event.currentTarget.dataset.songid;
+
+    // 在跳转之前获取到当前歌曲的下标,方便后续切换歌曲使用
+    const currentIndex = event.currentTarget.dataset.index;
+
+    this.setData({
+      currentIndex
+    })
+
     wx.navigateTo({
       url: '/pages/song/song?songId=' + songId
     })
@@ -42,6 +53,32 @@ Page({
     const recommendData = await req('/recommend/songs');
     this.setData({
       recommendList: recommendData.recommend
+    })
+
+    PubSub.subscribe('switchType',(msg,data)=>{
+      // console.log('switchType', msg, data)
+      let {currentIndex,recommendList} = this.data;
+      if (data === "next") {
+        // 能进入这里说明用户想要的是下一首歌的数据
+        if (currentIndex===recommendList.length-1){
+          currentIndex=0;
+        } else {
+          currentIndex += 1;
+        }
+      } else {
+        // 能进入这里说明用户想要的是上一首歌的数据
+        if (currentIndex === 0) {
+          currentIndex = recommendList.length - 1;
+        } else {
+          currentIndex -= 1;
+        }
+      }
+      const newSong = recommendList[currentIndex];
+      // console.log(newSong)
+      this.setData({
+        currentIndex
+      })
+      PubSub.publish('sendId',newSong.id);
     })
   },
 

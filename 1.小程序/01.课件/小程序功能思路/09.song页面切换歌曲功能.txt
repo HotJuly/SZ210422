@@ -1,0 +1,67 @@
+需求:当用户点击上一首/下一首按钮时,自动播放对应歌曲
+拆解:
+	1.当用户点击上一首/下一首按钮时
+		绑定事件监听,事件名:tap
+	2.自动播放对应歌曲
+		继续拆解:
+			1.如何用过js播放音频
+				与播放按钮功能相似
+			2.如何知道哪首歌是对应歌曲
+				前言:
+					播放顺序来源于recommendSong页面
+					song页面没有上一首/下一首的数据
+
+				song页面需要从recommendSong页面获取到对应歌曲信息
+				小程序两个页面之间的通信(传参)手段:
+					1.Storage(只存放重要数据,一般不是逼不得已不用)
+					2.app实例对象(将整个播放列表的数据,存入app实例对象身上)
+					3.路由传参(可以传递当前的下一首和上一首信息,但是下下首就找不到了,总结:url长度有限制,数据无法传输太多)
+					4.全局事件总线$bus
+						小程序中可以使用npm包
+							1.初始化package.json	npm init -y
+							2.下载依赖			npm install pubsub-js
+							3.勾选使用npm模块		微信开发者工具->详情->本地设置->使用npm模块
+							4.构建npm		微信开发者工具->工具->构建npm
+
+						全局事件总线中,一共具有几个角色?
+							订阅者	想要接收数据的人	$on	PubSub.subscribe
+							发布者	想要传递数据的人	$emit 	PubSub.publish
+							注意:
+								1.订阅一定要在发布之前
+								2.订阅者和发布者必须同时存在
+
+				需求1:song页面需要从recommendSong页面获取到对应歌曲信息
+					订阅者:song页面
+					发布者:recommendSong页面
+
+
+					出现问题:recommendSong页面如何才能知道用户在song页面点了上一首还是下一首?
+				需求2:recommendSong页面需要从song页面知道用户点击了什么操作?
+					订阅者:recommendSong页面
+					发布者:song页面
+					song页面发布"next"标识,给recommendSong页面
+
+				准备工作:
+					1.当用户点击下一首按钮时
+						需要绑定点击事件监听
+					2.recommendSong页面接收到song页面发布的数据
+						需要在song页面发布数据之前,订阅消息,消息名称:switchType
+					3.得到"next"标签,找到对应的歌曲
+						需要知道当前是哪一首歌
+						在用户点击跳转到song页面之前,提前保存好当前进入的歌曲页面的id
+
+					4.song页面接收到recommendSong页面发送的歌曲信息
+						需要在recommendSong页面发布数据之前,订阅消息
+
+				流程:
+					1.当用户点击下一首按钮时,song页面发布"next"标签,告知recommendSong页面
+					2.recommendSong页面接收到song页面发布的数据"next"
+					3.recommendSong根据用户操作标识"next",找到对应的歌曲
+					4.recommendSong找到对应歌曲信息,将该歌曲信息发送给song页面
+					5.song页面接收到recommendSong页面发送的歌曲信息
+					6.根据当前接收的歌曲信息,请求数据展示页面,并播放歌曲
+
+
+
+
+
