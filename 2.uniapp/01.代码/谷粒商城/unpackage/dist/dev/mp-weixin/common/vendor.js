@@ -7489,9 +7489,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!***************************************************************************!*\
-  !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/uniapp-init/pages.json ***!
-  \***************************************************************************/
+/*!********************************************************************!*\
+  !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/谷粒商城/pages.json ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8393,25 +8393,25 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 
 /***/ }),
 /* 7 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/uniapp-init/pages.json?{"type":"style"} ***!
-  \********************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/谷粒商城/pages.json?{"type":"style"} ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "home" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "atguigu", "navigationBarBackgroundColor": "#FF0000", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "谷粒商城", "navigationBarBackgroundColor": "#BB2C08", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/uniapp-init/pages.json?{"type":"stat"} ***!
-  \*******************************************************************************************/
+/*!************************************************************************************!*\
+  !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/谷粒商城/pages.json?{"type":"stat"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__asdjhakds" };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__APP" };exports.default = _default;
 
 /***/ }),
 /* 9 */,

@@ -13,10 +13,29 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function 
 
 _vue.default.config.productionTip = false;
 
+// 小程序开发中:小程序/页面/组件三者区分的非常清楚
+// 创建小程序:App,创建页面:Page,创建组件:Component
+// 当前代码的意思,是告知uniapp,当前这个App组件代表整个小程序
+// mp->mini program type->类型
 _App.default.mpType = 'app';
 
+
+//在创建Vue的实例对象
+// 相当于小程序中的App(),注册小程序
 var app = new _vue.default(_objectSpread({},
 _App.default));
+
+
+
+
+
+
+
+
+
+
+
+
 
 createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
@@ -94,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
   onLaunch: function onLaunch() {
-    console.log('App Launch');
+    console.log('App Launch1');
   },
   onShow: function onShow() {
     console.log('App Show');
