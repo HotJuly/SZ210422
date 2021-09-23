@@ -20,45 +20,23 @@
 		</view>
 		
 		<!-- 导航条区域 -->
-		<scroll-view class="navScroll" enable-flex scroll-x>
+		<scroll-view 
+		class="navScroll" 
+		enable-flex 
+		scroll-x
+		v-if="indexData.kingKongModule">
 			<view class="navItem active">
 				推荐
 			</view>
-			<view class="navItem">
-				居家生活
-			</view>
-			<view class="navItem">
-				服饰鞋包
-			</view>
-			<view class="navItem">
-				美食酒水
-			</view>
-			<view class="navItem">
-				居家生活
-			</view>
-			<view class="navItem">
-				服饰鞋包
-			</view>
-			<view class="navItem">
-				美食酒水
-			</view>
-			<view class="navItem">
-				居家生活
-			</view>
-			<view class="navItem">
-				服饰鞋包
-			</view>
-			<view class="navItem">
-				美食酒水
-			</view>
-			<view class="navItem">
-				居家生活
-			</view>
-			<view class="navItem">
-				服饰鞋包
-			</view>
-			<view class="navItem">
-				美食酒水
+			<!-- 在Vue2.0中v-for指令优先级更高,v-if更低
+				在Vue3.0中,优先级颠倒
+			 -->
+			<view 
+			class="navItem" 
+			v-for="item in indexData.kingKongModule.kingKongList"
+			:key="item.L1Id"
+			>
+				{{item.text}}
 			</view>
 		</scroll-view>
 		
@@ -70,10 +48,26 @@
 	export default {
 		data() {
 			return {
+				indexData:{}
 			}
 		},
-		onLoad() {
-
+		// uniapp兼容Vue和小程序的生命周期
+		// onLoad() {
+		// 	console.log('onLoad')
+		// },
+		created(){
+			// console.log('mounted')
+			uni.request({
+				url:"/api/getIndexData",
+				success:(res)=>{
+					// console.log('success',res)
+					const result = res.data;
+					// this.setData({
+					// 	indexData:result
+					// })
+					this.indexData= result;
+				}
+			})
 		},
 		methods:{
 

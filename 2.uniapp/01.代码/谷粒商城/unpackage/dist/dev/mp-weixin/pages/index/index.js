@@ -131,29 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -202,13 +180,30 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      indexData: {} };
 
   },
-  onLoad: function onLoad() {
+  // uniapp兼容Vue和小程序的生命周期
+  // onLoad() {
+  // 	console.log('onLoad')
+  // },
+  created: function created() {var _this = this;
+    // console.log('mounted')
+    uni.request({
+      url: "/api/getIndexData",
+      success: function success(res) {
+        // console.log('success',res)
+        var result = res.data;
+        // this.setData({
+        // 	indexData:result
+        // })
+        _this.indexData = result;
+      } });
 
   },
   methods: {} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 21 */
