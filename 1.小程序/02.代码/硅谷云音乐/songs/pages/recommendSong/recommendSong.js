@@ -1,8 +1,8 @@
 // pages/recommendSong/recommendSong.js
 import PubSub from 'pubsub-js';
 
-import hasPermission from '../../utils/hasPermission.js'
-import req from '../../utils/req.js'
+import hasPermission from '../../../utils/hasPermission.js'
+import req from '../../../utils/req.js'
 Page({
 
   /**
@@ -31,7 +31,7 @@ Page({
     })
 
     wx.navigateTo({
-      url: '/pages/song/song?songId=' + songId
+      url: '/songs/pages/song/song?songId=' + songId
     })
   },
 

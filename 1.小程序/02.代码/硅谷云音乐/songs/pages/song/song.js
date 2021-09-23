@@ -1,7 +1,10 @@
 // pages/song/song.js
 const appInstance = getApp();
-import req from '../../utils/req.js';
+
 import PubSub from 'pubsub-js';
+import moment from 'moment'
+
+import req from '../../../utils/req.js';
 // console.log('PubSub',PubSub)
 Page({
 
@@ -12,12 +15,17 @@ Page({
     isPlay:false,
     songObj:{},
     musicUrl:"",
-    songId:""
+    songId:"",
+    currentTime:"00:00",
+    durationTime:"--:--",
+    currentWidth:0
   },
 
   // 用于绑定背景音频相关的事件监听
   addEvent(){
     // console.log('addEvent')
+
+    // 用于监视背景音频播放
     this.backgroundAudioManager.onPlay(()=>{
       // console.log('onPlay')
 
@@ -30,6 +38,8 @@ Page({
       appInstance.globalData.playState = true;
     })
 
+
+    // 用于监视背景音频暂停
     this.backgroundAudioManager.onPause(() => {
       // console.log('onPause')
       if (appInstance.globalData.audioId === this.data.songId){
@@ -38,6 +48,21 @@ Page({
         })
       }
       appInstance.globalData.playState = false;
+    })
+
+    // 用于监视背景音频进度更新
+    this.backgroundAudioManager.onTimeUpdate(()=>{
+
+      // moment需要的是毫秒值
+      const currentTime = moment(this.backgroundAudioManager.currentTime *1000).format('mm:ss');
+      // console.log('onTimeUpdate', currentTime)
+
+      const currentWidth = this.backgroundAudioManager.currentTime *100 / this.backgroundAudioManager.duration;
+
+      this.setData({
+        currentTime,
+        currentWidth
+      })
     })
   },
 
@@ -52,8 +77,9 @@ Page({
     // console.log('handlePlay')
 
     // const { data: [{ url }] } = await req('/song/url', { id: this.data.songId });
-    const result = await req('/song/url', { id: this.data.songId });
-    const url = result.data[0].url;
+    if (!this.data.musicUrl) {
+      await this.getMusicUrl();
+    }
     // const backgroundAudioManager = wx.getBackgroundAudioManager();
 
     // 我们通过isPlay状态,记录当前页面是否正在播放
@@ -61,7 +87,7 @@ Page({
     // 如果isPlay状态为true,就代表当前页面正在播放歌曲
     if (!this.data.isPlay) {
       //能进入到这里,说明当前背景音频没有在播放
-      this.backgroundAudioManager.src = url;
+      this.backgroundAudioManager.src = this.data.musicUrl;
       this.backgroundAudioManager.title = this.data.songObj.name;
 
       // 将当前正在播放的歌曲id保存到app对象身上
@@ -79,8 +105,7 @@ Page({
     }
 
     this.setData({
-      isPlay:!this.data.isPlay,
-      musicUrl: url
+      isPlay:!this.data.isPlay
     })
   },
 
@@ -89,7 +114,9 @@ Page({
     const result = await req('/song/detail', { ids: this.data.songId });
     // console.log('result', result)
     this.setData({
-      songObj: result.songs[0]
+      songObj: result.songs[0],
+      durationTime: moment(result.songs[0].dt).format('mm:ss')
+      // durationTime: moment(this.data.songObj.dt)
     })
 
     // 除了在app.json的window中或者每个页面的json文件中可以静态注入导航栏标题
