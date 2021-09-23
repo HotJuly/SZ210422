@@ -6,9 +6,10 @@
 	 -->
 	<!-- <div>
 		indexContainer
-		<i>撒娇达克赛德</i>
+		<i></i>
 	</div> -->
 	<view class="indexContainer">
+		<!-- 头部区域 -->
 		<view class="header">
 			<image class="logo" src="../../static/images/logo.png" mode=""></image>
 			<view class="search">
@@ -17,6 +18,50 @@
 			</view>
 			<button class="username">七月</button>
 		</view>
+		
+		<!-- 导航条区域 -->
+		<scroll-view class="navScroll" enable-flex scroll-x>
+			<view class="navItem active">
+				推荐
+			</view>
+			<view class="navItem">
+				居家生活
+			</view>
+			<view class="navItem">
+				服饰鞋包
+			</view>
+			<view class="navItem">
+				美食酒水
+			</view>
+			<view class="navItem">
+				居家生活
+			</view>
+			<view class="navItem">
+				服饰鞋包
+			</view>
+			<view class="navItem">
+				美食酒水
+			</view>
+			<view class="navItem">
+				居家生活
+			</view>
+			<view class="navItem">
+				服饰鞋包
+			</view>
+			<view class="navItem">
+				美食酒水
+			</view>
+			<view class="navItem">
+				居家生活
+			</view>
+			<view class="navItem">
+				服饰鞋包
+			</view>
+			<view class="navItem">
+				美食酒水
+			</view>
+		</scroll-view>
+		
 	</view>
 		
 </template>
@@ -70,4 +115,16 @@
 				font-size 24upx
 				color red
 				flex-shrink  0
+		.navScroll
+			// display flex
+			white-space nowrap
+			.navItem
+				display inline-block
+				width 140upx
+				height 80upx
+				font-size 28upx
+				text-align center
+				line-height 80upx
+				&.active
+					border-bottom 4upx solid red
 </style>
