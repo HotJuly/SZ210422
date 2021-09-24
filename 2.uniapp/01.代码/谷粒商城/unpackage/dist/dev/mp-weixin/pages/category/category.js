@@ -161,72 +161,32 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _req = _interopRequireDefault(__webpack_require__(/*! ../../utils/req.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
     return {
-      categoryDatas: [] };
+      categoryDatas: [],
+      currentIndex: 0 };
 
   },
   created: function () {var _created = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var result;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                 (0, _req.default)('/getCategoryDatas'));case 2:result = _context.sent;
-              this.categoryDatas = result;case 4:case "end":return _context.stop();}}}, _callee, this);}));function created() {return _created.apply(this, arguments);}return created;}() };exports.default = _default;
+              this.categoryDatas = result;case 4:case "end":return _context.stop();}}}, _callee, this);}));function created() {return _created.apply(this, arguments);}return created;}(),
+
+  methods: {
+    changeIndex: function changeIndex(index) {
+      this.currentIndex = index;
+    } },
+
+  computed: {
+    navList: function navList() {
+      return this.categoryDatas.map(function (item) {
+        return item.name;
+      });
+    },
+    categoryObj: function categoryObj() {
+      return this.categoryDatas[this.currentIndex];
+    } } };exports.default = _default;
 
 /***/ }),
 
