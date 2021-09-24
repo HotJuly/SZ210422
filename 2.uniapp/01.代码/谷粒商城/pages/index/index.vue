@@ -45,6 +45,7 @@
 </template>
 
 <script>
+	import req from '../../utils/req.js';
 	export default {
 		data() {
 			return {
@@ -55,19 +56,23 @@
 		// onLoad() {
 		// 	console.log('onLoad')
 		// },
-		created(){
+		async created(){
 			// console.log('mounted')
-			uni.request({
-				url:"/api/getIndexData",
-				success:(res)=>{
-					// console.log('success',res)
-					const result = res.data;
-					// this.setData({
-					// 	indexData:result
-					// })
-					this.indexData= result;
-				}
-			})
+			// 小程序的基础路径必须是完整路径:域名+端口号
+			// h5的基础路径必须是代理的前缀
+			// uni.request({
+			// 	url:"/api/getIndexData",
+			// 	success:(res)=>{
+			// 		// console.log('success',res)
+			// 		const result = res.data;
+			// 		// this.setData({
+			// 		// 	indexData:result
+			// 		// })
+			// 		this.indexData= result;
+			// 	}
+			// })
+			let result = await req('/getIndexData');
+			this.indexData= result;
 		},
 		methods:{
 
