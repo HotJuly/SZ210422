@@ -8400,7 +8400,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "谷粒商城", "navigationBarBackgroundColor": "#BB2C08", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "usingComponents": { "recommend": "/components/Recommend/Recommend", "cate-list": "/components/CateList/CateList" } }, "pages/personal/personal": { "usingComponents": {} }, "pages/cart/cart": { "usingComponents": {} }, "pages/category/category": { "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "谷粒商城", "navigationBarBackgroundColor": "#BB2C08", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -9504,8 +9504,8 @@ var index_esm = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 24));var _req = _interopRequireDefault(__webpack_require__(/*! ../../utils/req.js */ 27));
-var _mutationTypes = __webpack_require__(/*! ../mutation-types.js */ 33);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 18));var _req = _interopRequireDefault(__webpack_require__(/*! ../../utils/req.js */ 21));
+var _mutationTypes = __webpack_require__(/*! ../mutation-types.js */ 23);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
 var state = {
   initData: "我是初始化的数据",
   indexData: {} };
@@ -9537,24 +9537,18 @@ var getters = {};var _default =
   getters: getters };exports.default = _default;
 
 /***/ }),
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */
+/* 18 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 25);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 19);
 
 
 /***/ }),
-/* 25 */
+/* 19 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -9585,7 +9579,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 26);
+module.exports = __webpack_require__(/*! ./runtime */ 20);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -9601,7 +9595,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 26 */
+/* 20 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -10332,7 +10326,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 27 */
+/* 21 */
 /*!**********************************************************************!*\
   !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/谷粒商城/utils/req.js ***!
   \**********************************************************************/
@@ -10340,7 +10334,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 28));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = _default;var _config = _interopRequireDefault(__webpack_require__(/*! ./config.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 小程序的基础路径必须是完整路径:域名+端口号
 // h5的基础路径必须是代理的前缀
@@ -10389,7 +10383,7 @@ function _default(url) {var data = arguments.length > 1 && arguments[1] !== unde
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 28 */
+/* 22 */
 /*!*************************************************************************!*\
   !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/谷粒商城/utils/config.js ***!
   \*************************************************************************/
@@ -10402,11 +10396,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   h5Host: '/api' };exports.default = _default;
 
 /***/ }),
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */
+/* 23 */
 /*!*********************************************************************************!*\
   !*** C:/Users/CHH/Desktop/SZ210422/2.uniapp/01.代码/谷粒商城/store/mutation-types.js ***!
   \*********************************************************************************/

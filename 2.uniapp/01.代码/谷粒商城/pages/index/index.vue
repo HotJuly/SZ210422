@@ -40,7 +40,9 @@
 			</view>
 		</scroll-view>
 		
-		<Recommend/>
+		<scroll-view class="contentScroll" scroll-y="true" >
+			<Recommend/>
+		</scroll-view>
 	</view>
 		
 </template>
@@ -145,4 +147,16 @@
 				line-height 80upx
 				&.active
 					border-bottom 4upx solid red
+		.contentScroll
+			// 小程序:height = 屏幕100%高度 - header高度 - nav高度
+			// h5:height = 屏幕100%高度 - header高度 - nav高度 - 导航栏高度
+			// /* #ifdef MP-WEIXIN */
+			// height calc(100vh - 80upx - 84upx)
+			// /* #endif */
+			
+			// /* #ifdef H5 */
+			// height calc(100vh - 80upx - 84upx - 88upx)
+			// /* #endif */
+			
+			height calc(100vh - 80upx - 84upx - var(--window-top) - var(--window-bottom))
 </style>
