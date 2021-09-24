@@ -40,16 +40,20 @@
 			</view>
 		</scroll-view>
 		
+		<Recommend/>
 	</view>
 		
 </template>
 
 <script>
+	import {mapState} from 'vuex'
+	import Recommend from '../../components/Recommend/Recommend.vue';
+	import CateList from '../../components/CateList/CateList.vue';
 	import req from '../../utils/req.js';
 	export default {
 		data() {
 			return {
-				indexData:{}
+				// indexData:{}
 			}
 		},
 		// uniapp兼容Vue和小程序的生命周期
@@ -71,11 +75,26 @@
 			// 		this.indexData= result;
 			// 	}
 			// })
-			let result = await req('/getIndexData');
-			this.indexData= result;
+			// let result = await req('/getIndexData');
+			// this.indexData= result;
+			this.$store.dispatch('getIndexData');
+			
+			// console.log('initData',this.$store.state.home.initData)
 		},
 		methods:{
 
+		},
+		computed:{
+			// indexData(){
+			// 	return this.$store.state.home.indexData;
+			// },
+			...mapState({
+				indexData:state=>state.home.indexData
+			})
+		},
+		components:{
+			Recommend,
+			CateList
 		}
 	}
 </script>
