@@ -52,6 +52,21 @@ router.get('/getCategoryDatas',function(ctx){
 	ctx.body=categoryDatas;
 })
 
+// 该接口用于返回首页分类所需要的数据
+const indexCateList = require('./datas/indexCateList.json');
+router.get('/getIndexCateList',async function(ctx){
+	// console.log('/test success');
+	// koa服务器,无法使用定时器延迟返回数据的操作
+	// koa服务器要求,如果想要延迟返回数据的操作,路由的回调函数必须返回一个promise对象
+	await new Promise((resolve)=>{
+		setTimeout(()=>{
+			resolve()
+		},2000)
+	})
+	
+	ctx.body=indexCateList;
+})
+
 // 2.将服务器应用实例挂载到电脑的某个端口上,并监视该端口
 app.listen('5000',function(error,msg){
 	if(error){

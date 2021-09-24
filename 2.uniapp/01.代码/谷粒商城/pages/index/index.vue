@@ -25,23 +25,29 @@
 		enable-flex 
 		scroll-x
 		v-if="indexData.kingKongModule">
-			<view class="navItem active">
+			<view class="navItem"
+			:class="navIndex===-1?'active':''"
+			@click="changeNavIndex(-1)"
+			>
 				推荐
 			</view>
 			<!-- 在Vue2.0中v-for指令优先级更高,v-if更低
 				在Vue3.0中,优先级颠倒
 			 -->
 			<view 
-			class="navItem" 
-			v-for="item in indexData.kingKongModule.kingKongList"
+			class="navItem"
+			:class="navIndex===index?'active':''"
+			v-for="(item,index) in indexData.kingKongModule.kingKongList"
 			:key="item.L1Id"
+			@click="changeNavIndex(index)"
 			>
 				{{item.text}}
 			</view>
 		</scroll-view>
 		
 		<scroll-view class="contentScroll" scroll-y="true" >
-			<Recommend/>
+			<Recommend v-if="navIndex===-1"/>
+			<CateList :navIndex="navIndex" v-else/>
 		</scroll-view>
 	</view>
 		
@@ -55,7 +61,8 @@
 	export default {
 		data() {
 			return {
-				// indexData:{}
+				// indexData:{},
+				navIndex:-1
 			}
 		},
 		// uniapp兼容Vue和小程序的生命周期
@@ -84,7 +91,9 @@
 			// console.log('initData',this.$store.state.home.initData)
 		},
 		methods:{
-
+			changeNavIndex(index){
+				this.navIndex=index;
+			}
 		},
 		computed:{
 			// indexData(){

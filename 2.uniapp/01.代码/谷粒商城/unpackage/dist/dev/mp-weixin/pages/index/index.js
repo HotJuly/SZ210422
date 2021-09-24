@@ -172,6 +172,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 16);
 
 
@@ -179,8 +185,9 @@ var _req = _interopRequireDefault(__webpack_require__(/*! ../../utils/req.js */ 
 {
   data: function data() {
     return {
-      // indexData:{}
-    };
+      // indexData:{},
+      navIndex: -1 };
+
   },
   // uniapp兼容Vue和小程序的生命周期
   // onLoad() {
@@ -207,8 +214,10 @@ var _req = _interopRequireDefault(__webpack_require__(/*! ../../utils/req.js */ 
 
               // console.log('initData',this.$store.state.home.initData)
             case 1:case "end":return _context.stop();}}}, _callee, this);}));function created() {return _created.apply(this, arguments);}return created;}(),
-  methods: {},
-
+  methods: {
+    changeNavIndex: function changeNavIndex(index) {
+      this.navIndex = index;
+    } },
 
   computed: _objectSpread({},
 
