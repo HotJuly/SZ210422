@@ -1,4 +1,10 @@
 1.使用内置浏览器
 
 2.配置代理规则
+	在vue.config.js文件中配置devServer.proxy
+	参考文档:Vue-cli的配置文档
+
+3.配置manifest.json文件
+	在该文件的h5配置中,添加devServer相关配置
+	参考文档:webpack4的配置文档
 	
