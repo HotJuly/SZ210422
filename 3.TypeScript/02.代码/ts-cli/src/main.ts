@@ -1,66 +1,121 @@
+// (function(){
+//     class Person{
+//         public name:string;
+//         protected age:number;
+//         private phone:number;
+
+//         constructor(name,age,phone){
+//             this.name=name;
+//             this.age=age;
+//             this.phone=phone;
+//         }
+
+//         sayHello(text){
+//             console.log(text)
+//         }
+//     }
+
+//     class Student extends Person{
+//         readonly price:number
+//         constructor(name,age,phone,price){
+//             // Person.call(this,name,age,phone)
+//             super(name,age,phone)
+//             this.price=price;
+//         }
+
+//         sayHello(){
+//             console.log(`我是${this.name},我今年${this.age},我有${this.price}钱,我的联系方式${this.phone}`)
+//         }
+//     }
+
+//     let p1 = new Person('小明',18,177777);
+//     let s1 = new Student('小王',17.99,10000,10000000000);
+//     console.log(s1.name,s1.age,s1.phone,s1.price)
+//     s1.sayHello();
+//     // s1.price+=1000000;
+
+//     // 公共，私有与受保护的修饰符
+
+// })();
+
+// (function(){
+//     class Person {
+//         static name1:string="小王";
+//         firstName: string = 'A'
+//         lastName: string = 'B'
+//         get fullName () {
+//           return this.firstName + '-' + this.lastName
+//         }
+//         set fullName (value) {
+//           const names = value.split('-')
+//           this.firstName = names[0]
+//           this.lastName = names[1]
+//         }
+//       }
+      
+//       const p = new Person()
+//       console.log(p.fullName)
+      
+//     //   p.firstName = 'C'
+//     //   p.lastName =  'D'
+//     //   console.log(p.fullName)
+      
+//       p.fullName = 'E-F'
+//       console.log(p.firstName, p.lastName)
+// })();
+
 (function(){
-    // 现在有一个对象
-    // id是number类型, 必须有, 只读的
-    // name是string类型, 必须有
-    // age是number类型, 必须有
-    // sex是string类型, 可以没有
+    // 抽象类
+    // 现在有一个人类的类,他必须要有sayHello方法和name属性
 
-    // 接口就是约束对象,可以对某些对象提出要求
-    interface IObj{
-        readonly id:number
-        name:string
-        age:number
-        sex?:string
-    }
-
-    let obj :IObj = {
-        id:1,
-        name:"xiaoming",
-        age:18,
-        sex:"nan"
-    }
-    // obj.id=666;
-
-    console.log(obj)
-
-    // const obj1= {name:123}
-    // obj1.name=666;
-
-
-    interface IFn{
-        (a:number,b:number,c:number):number
-    }
-
-    let fn:IFn = function(a:number,b:number):number{
-        return a+b
-    }
-    fn(1,2,3)
-
-    // let fn1 = function(a:number,b:number):void{
+    // interface IPerson{
+    //     name:string;
+    //     sayHello:(text:string)=>void;
     // }
-    // fn1(1,2)
 
+    // class Perosn implements IPerson{
+    //     name:string;
+    //     sayHello(text){
+    //         console.log(text)
+    //     }
+    // }
 
+    // abstract class M{
+    //     name:string;
+    //     sayHello(text:string):void;
+    //     cry(){
+    //         console.log('crycrycrycrycrycry')
+    //     }
+    // }
 
-})();
+    // class Perosn extends M{
+    //     name:string;
+    //     sayHello(text){
+    //         console.log(text)
+    //     }
+    // }
 
-(function(){
+    // 抽象类>=接口
+    // 可以在约束子类的同时,给子类提供一些可调用的方法和属性
+    abstract class Animal {
 
-    interface IPerson{
-        name:string
-        sayHello:(text:string)=>void
-    }
-
-    interface IStudent extends IPerson{
-        price:number
-    }
-
-    class Student implements IStudent{
-        name:string;
-        price:number;
-        sayHello(text:string){
-            console.log(text)
+        abstract cry ():void
+      
+        run () {
+          console.log('run()')
         }
-    }
+      }
+      
+      class Dog extends Animal {
+        cry () {
+          console.log(' Dog cry()')
+        }
+      }
+      
+      const dog = new Dog()
+      const dog1 = new Animal()
+      dog.cry()
+      dog.run()
+
 
 })();
