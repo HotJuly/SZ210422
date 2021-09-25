@@ -11,10 +11,10 @@
 		
 		<!-- 内容区 -->
 		<scroll-view class="content" scroll-y="true">
-			<image class="detailImg" src="https://yanxuan-item.nosdn.127.net/c2eeb1b872af1b8efc179a7515aacdaa.png" mode=""></image>
+			<image class="detailImg" :src="goodInfo.listPicUrl" mode=""></image>
 			<view class="tag">暖冬特惠</view>
-			<text class="price">￥ 209</text>
-			<view class="info">男式色拉姆内衣套装2.0</view>
+			<text class="price">￥ {{goodInfo.retailPrice}}</text>
+			<view class="info">{{goodInfo.name}}</view>
 			
 			
 			<!-- 准备内容 -->
@@ -30,24 +30,39 @@
 		<view class="detailFooter">
 			<image class="service" src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/detail-kefu-d10f0489d2.png?imageView&type=webp" mode=""></image>
 			<view class="btn buyNow">立即购买</view>
-			<view class="btn addShopCart">加入购物车</view>
+			<view class="btn addShopCart" @click="addToCart">加入购物车</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {mapMutations} from  'vuex';
+	import req from '../../utils/req.js';
 	export default {
 		data() {
 			return {
-				
+				goodInfo:{}
 			}
 		},
 		// onLoad(options){
 		// 	console.log('options',options)
 		// },
-		mounted(options){
-			console.log('options',this)
+		async mounted(){
+			// console.log('options',this)
 			// 想要获取到路由传参的数据,需要在mounted的this.$mp身上获取或者onLoad的形参options中获取
+			const goodId = this.$mp.query.goodId;
+			// console.log('goodId',goodId)
+			const good = await req('/getGoodDetail',{goodId});
+			this.goodInfo = good;
+		},
+		methods:{
+			addToCart(){
+				uni.showToast({
+					title:"已添加至购物车"
+				})
+				this.ADDTOCARTMUTATION(this.goodInfo);
+			},
+			...mapMutations(["ADDTOCARTMUTATION"])
 		}
 	}
 </script>

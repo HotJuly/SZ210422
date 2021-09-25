@@ -9,7 +9,7 @@
 		"minified": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.15.0",
+	"libVersion": "2.7.0",
 	"appid": "wxe5931a68ea66cece",
 	"projectname": "谷粒商城",
 	"simulatorType": "wechat",

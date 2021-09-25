@@ -29,6 +29,7 @@ app.use(router.routes());
 	koa
 		回调函数接收两个参数
 			1.ctx->request+response
+				query参数:ctx.query(自动将路径中的query字符串转换为query对象)
 				ctx.body=想要返回的数据(该数据会被json化)
 			2.next->执行下一个中间件
 */
@@ -65,6 +66,29 @@ router.get('/getIndexCateList',async function(ctx){
 	})
 	
 	ctx.body=indexCateList;
+})
+
+
+
+// 该接口用于请求商品详细信息数据
+const goods = require('./datas/goods.json');
+router.get('/getGoodDetail',function(ctx){
+	console.log('/getGoodDetail',ctx.query);
+	const goodId = ctx.query.goodId;
+	
+	// 通过goodId找到对应的商品对象
+	const good = goods.find((good)=>{
+		return good.id === goodId>>>0 ;
+	})
+	
+	if(good){
+		ctx.body=good;
+	}else{
+		ctx.body={
+			errMsg:"查无此商品"
+		}
+	}
+	
 })
 
 // 2.将服务器应用实例挂载到电脑的某个端口上,并监视该端口
