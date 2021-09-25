@@ -1,6 +1,8 @@
+import Vue from 'vue';
 const state={
 	cartList:[
     {
+		"selected":true,
 		"count":2,
         "promId": 0,
         "showPoints": false,
@@ -77,6 +79,7 @@ const state={
         "itemSizeTableFlag": false
     },
     {
+		"selected":false,
 		"count":6,
         "promId": 0,
         "showPoints": false,
@@ -170,19 +173,75 @@ const mutations={
 		   return shopItem.id === good.id;
 	   })
 	   
+	   // 有一个属性,修改该属性的值,但是页面没有展示最新数据
+	   
 	   if(shopItem){
+		   console.log('+1',shopItem)
 		   shopItem.count+=1
 	   }else{
-		   good.count=1;
+		   console.log('=1',good)
+		   // good.count=1;
+		   Vue.set(good,'count',1);
+		   Vue.set(good,'selected',true);
 		   state.cartList.push(good);
 	   }
 	   
 		// console.log('ADDTOCARTMUTATION')
+	},
+	CHANGECOUNTMUTATION(state,{flag,index}){
+		// console.log('CHANGECOUNTMUTATION',flag,index)
+		/*
+			需求:当用户点击商品+/-号时,将对应商品的数量进行加一或者减一
+				注意:如果当前商品数量已经是1,在触发减号按钮,对应商品应该被删除
+		*/
+	   const shopItem = state.cartList[index];
+	   if(flag){
+		shopItem.count++;
+	   }else{
+		   if(shopItem.count>1){
+			shopItem.count--;
+		   }else{
+			   state.cartList.splice(index,1);
+		   }
+	   }
+	},
+	CHANGESELECTEDMUTATION(state,{selected,index}){
+		// console.log('CHANGESELECTEDMUTATION')
+		state.cartList[index].selected=selected;
+	},
+	CHANGEALLSELECTEDMUTATION(state,selected){
+		// console.log('CHANGEALLSELECTEDMUTATION')
+		/*
+			将所有商品的选中状态都变成当前selected相同状态
+		*/
+	   state.cartList.forEach((shopItem)=>{
+		   shopItem.selected=selected
+	   })
 	}
 };
 
 const getters={
-	
+	isSelectedAll(state){
+		/*
+			如果当前购物车中所有商品都处于选中状态,全选按钮也处于选中状态
+			如果当前购物车中有一个及以上商品处于未选中状态,全选按钮处于未选中状态
+			如果当前购物车中没有商品,全选按钮处于未选中状态
+			函数返回值类型:布尔值
+			
+			every
+				数组中所有的元素都满足条件,就返回true,否则返回false
+			some
+				数组中至少有一个满足条件,就返回true,否则返回false
+		*/
+	   if(state.cartList.length){
+		const result = state.cartList.every((shopItem)=>{
+			return shopItem.selected
+		})
+		// console.log(result)
+		return result;
+	   }
+	   return false;
+	}
 };
 
 

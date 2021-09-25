@@ -1505,9 +1505,11 @@ uni$1;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var state = {
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var state = {
   cartList: [
   {
+    "selected": true,
     "count": 2,
     "promId": 0,
     "showPoints": false,
@@ -1584,6 +1586,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     "itemSizeTableFlag": false },
 
   {
+    "selected": false,
     "count": 6,
     "promId": 0,
     "showPoints": false,
@@ -1677,19 +1680,75 @@ var mutations = {
       return shopItem.id === good.id;
     });
 
+    // 有一个属性,修改该属性的值,但是页面没有展示最新数据
+
     if (shopItem) {
+      console.log('+1', shopItem);
       shopItem.count += 1;
     } else {
-      good.count = 1;
+      console.log('=1', good);
+      // good.count=1;
+      _vue.default.set(good, 'count', 1);
+      _vue.default.set(good, 'selected', true);
       state.cartList.push(good);
     }
 
     // console.log('ADDTOCARTMUTATION')
+  },
+  CHANGECOUNTMUTATION: function CHANGECOUNTMUTATION(state, _ref) {var flag = _ref.flag,index = _ref.index;
+    // console.log('CHANGECOUNTMUTATION',flag,index)
+    /*
+    	需求:当用户点击商品+/-号时,将对应商品的数量进行加一或者减一
+    		注意:如果当前商品数量已经是1,在触发减号按钮,对应商品应该被删除
+    */
+    var shopItem = state.cartList[index];
+    if (flag) {
+      shopItem.count++;
+    } else {
+      if (shopItem.count > 1) {
+        shopItem.count--;
+      } else {
+        state.cartList.splice(index, 1);
+      }
+    }
+  },
+  CHANGESELECTEDMUTATION: function CHANGESELECTEDMUTATION(state, _ref2) {var selected = _ref2.selected,index = _ref2.index;
+    // console.log('CHANGESELECTEDMUTATION')
+    state.cartList[index].selected = selected;
+  },
+  CHANGEALLSELECTEDMUTATION: function CHANGEALLSELECTEDMUTATION(state, selected) {
+    // console.log('CHANGEALLSELECTEDMUTATION')
+    /*
+    	将所有商品的选中状态都变成当前selected相同状态
+    */
+    state.cartList.forEach(function (shopItem) {
+      shopItem.selected = selected;
+    });
   } };
 
 
-var getters = {};var _default =
-
+var getters = {
+  isSelectedAll: function isSelectedAll(state) {
+    /*
+                                                	如果当前购物车中所有商品都处于选中状态,全选按钮也处于选中状态
+                                                	如果当前购物车中有一个及以上商品处于未选中状态,全选按钮处于未选中状态
+                                                	如果当前购物车中没有商品,全选按钮处于未选中状态
+                                                	函数返回值类型:布尔值
+                                                	
+                                                	every
+                                                		数组中所有的元素都满足条件,就返回true,否则返回false
+                                                	some
+                                                		数组中至少有一个满足条件,就返回true,否则返回false
+                                                */
+    if (state.cartList.length) {
+      var result = state.cartList.every(function (shopItem) {
+        return shopItem.selected;
+      });
+      // console.log(result)
+      return result;
+    }
+    return false;
+  } };var _default =
 
 
 
@@ -10610,7 +10669,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页" }, "pages/personal/personal": {}, "pages/login/login": {}, "pages/category/category": {}, "pages/cart/cart": {}, "pages/detail/detail": {} }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "谷粒商城", "navigationBarBackgroundColor": "#BB2C08", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "usingComponents": { "recommend": "/components/Recommend/Recommend", "cate-list": "/components/CateList/CateList" } }, "pages/personal/personal": { "usingComponents": {} }, "pages/login/login": { "usingComponents": {} }, "pages/category/category": { "usingComponents": {} }, "pages/cart/cart": { "usingComponents": {} }, "pages/detail/detail": { "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "谷粒商城", "navigationBarBackgroundColor": "#BB2C08", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

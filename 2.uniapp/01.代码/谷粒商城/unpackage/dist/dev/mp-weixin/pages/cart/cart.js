@@ -206,6 +206,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
   data: function data() {
@@ -224,7 +233,27 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {
   },
   computed: _objectSpread({},
   (0, _vuex.mapState)({
-    cartList: function cartList(state) {return state.cart.cartList;} })) };exports.default = _default;
+    cartList: function cartList(state) {return state.cart.cartList;} }),
+
+  (0, _vuex.mapGetters)(["isSelectedAll"])),
+
+  methods: _objectSpread({
+    changeCount: function changeCount(flag, index) {
+      // console.log(flag,index)
+      // if(flag){
+      // 能进入这里说明用户点击了+1按钮
+      this.CHANGECOUNTMUTATION({ flag: flag, index: index });
+      // }else{
+      // 	// 能进入这里说明用户点击了-1按钮
+      // }
+    },
+    changeSelected: function changeSelected(selected, index) {
+      this.CHANGESELECTEDMUTATION({ selected: selected, index: index });
+    },
+    changeAllSelected: function changeAllSelected(selected) {
+      this.CHANGEALLSELECTEDMUTATION(selected);
+    } },
+  (0, _vuex.mapMutations)(["CHANGECOUNTMUTATION", "CHANGESELECTEDMUTATION", "CHANGEALLSELECTEDMUTATION"])) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
