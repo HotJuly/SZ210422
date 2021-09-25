@@ -26,7 +26,7 @@
 				uni.getUserProfile({
 					desc:"用于测试",
 					success:(res)=>{
-						// console.log(res)
+						console.log(res)
 						uni.setStorage({
 							key:"userInfoStr",
 							data:res.rawData

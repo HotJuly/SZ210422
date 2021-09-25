@@ -1,5 +1,9 @@
 const Koa = require('koa');
 const KoaRouter = require('koa-router');
+const Fly = require("flyio/src/node");
+const jwt = require('jsonwebtoken');
+
+const fly = new Fly();
 
 // 1.创建服务器应用实例对象
 // const app = express();
@@ -90,6 +94,32 @@ router.get('/getGoodDetail',function(ctx){
 	}
 	
 })
+
+
+
+
+// 该接口用于获取用户唯一标识openId
+router.get('/getOpenId',async function(ctx){
+	const code = ctx.query.code;
+	const appId = 'wxe5931a68ea66cece';
+	const appSecret = '8cd19df8abaac742313e5294b85b8c4d';
+	
+	const url= `https://api.weixin.qq.com/sns/jscode2session?appid=${appId}&secret=${appSecret}&js_code=${code}&grant_type=authorization_code`
+	
+	const result = await fly.get(url);
+	const {openid} = JSON.parse(result.data);
+	// console.log(openid)
+	// jwt.sign(需要加密的数据, 盐)
+	const salt = 'atguigu';
+	const token = jwt.sign(openid, salt);
+	// console.log(token)
+	
+	// const newOpenId = jwt.verify(token,salt);
+	// console.log(newOpenId,openid)
+	
+	ctx.body=token
+})
+
 
 // 2.将服务器应用实例挂载到电脑的某个端口上,并监视该端口
 app.listen('5000',function(error,msg){
