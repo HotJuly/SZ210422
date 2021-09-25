@@ -1,0 +1,24 @@
+流程:
+	1.全局下载typescript
+		npm i typescript -g
+	2.编译文件
+		方案一:
+			tsc 需要编译的ts文件路径
+		方案二:
+			1.生成ts配置文件(tsconfig.json)
+				tsc  --init
+			2.让vscode自动监视并打包ts文件
+				vscode工具->终端->运行任务->找到typescript->进入之后找到tsc:监视
+		方案三:
+			在脚手架中使用ts
+			1.复制package.json和webpack.config.js
+			2.下载依赖
+				npm i
+			3.初始化ts配置文件
+				tsc --init
+				注意:将严格模式关闭
+			4.创建文件夹
+				public文件夹->必须创建index.html
+				src->必须创建main.ts
+			5.运行该脚手架
+				npm start
