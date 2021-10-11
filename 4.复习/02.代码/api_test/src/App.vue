@@ -1,8 +1,9 @@
 <template>
   <div id="app" class="B">
-    <h1>APP.VUE</h1>
+    <h1 ref="app">APP.VUE</h1>
     <h2>{{a}}</h2>
-    <HelloWorld111 class="ABC" v-model="a" msg="Welcome to Your Vue.js App"/>
+    <HelloWorld111 ref="hello" class="ABC" v-model="a" msg="Welcome to Your Vue.js App"/>
+    <HelloWorld111 msg="App" a="1" b="2" c="3"/>
   </div>
 </template>
 
@@ -13,7 +14,8 @@ export default {
   name: 'App',
   data(){
     return {
-      a:"haha"
+      a:"haha",
+      b:"666"
     }
   },
   provide:{
@@ -25,6 +27,12 @@ export default {
   computed:{
   },
   mounted(){
+    // console.log('mounted',this.$children[0].inputValue)
+    // var temp = this.$children[0];
+    // this.$children[0] = this.$children[1];
+    // this.$children[1] = temp;
+
+    console.log('refs',this.$refs.hello)
   },
   methods:{
   }

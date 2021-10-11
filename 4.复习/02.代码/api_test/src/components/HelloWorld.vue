@@ -16,7 +16,6 @@ export default {
   props: {
     msg: String,
     value:String,
-    a1:String
   },
   data(){
     return{
@@ -26,7 +25,10 @@ export default {
   inject:["haha"],
   mixins:[mixins],
   mounted(){
-    console.log('inject',this.haha)
+    // console.log('inject',this.haha)
+    // console.log('a1',this.$props.a1)
+    // console.log('a',this.$parent.a)
+    console.log(111,this.a1)
   },
   model:{
     prop:"a1",
