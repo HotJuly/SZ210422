@@ -1,17 +1,43 @@
 <template>
   <div class="hello">
     <h2>{{ msg }}</h2>
-    <h2>hello</h2>
+    <input type="text" :value="a1" @input="handleChange">
+    <!-- <input type="text" v-model="inputValue">
+    <input type="text" :value="inputValue" @input="event=>inputValue=event.target.value"> -->
+    <!-- <el-input v-model="" placeholder=""></el-input> -->
+    <!-- <el-form-item label="label">
+    </el-form-item> -->
   </div>
 </template>
 
 <script>
+import mixins from '../mixins';
 export default {
-  name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+    value:String,
+    a1:String
   },
-  a:3
+  data(){
+    return{
+      inputValue:123
+    }
+  },
+  inject:["haha"],
+  mixins:[mixins],
+  mounted(){
+    console.log('inject',this.haha)
+  },
+  model:{
+    prop:"a1",
+    event:"input123321"
+  },
+  methods:{
+    handleChange(event){
+      // console.log('value',event.target.value)
+      this.$emit('input123321',event.target.value)
+    }
+  }
 }
 </script>
 
