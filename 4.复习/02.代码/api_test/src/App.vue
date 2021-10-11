@@ -1,9 +1,11 @@
 <template>
   <div id="app" class="B">
-    <h1 ref="app">APP.VUE</h1>
-    <h2>{{a}}</h2>
-    <HelloWorld111 ref="hello" class="ABC" v-model="a" msg="Welcome to Your Vue.js App"/>
-    <HelloWorld111 msg="App" a="1" b="2" c="3"/>
+    <h1 ref="app" @click="handleClick">APP.VUE</h1>
+    <h2 v-once>{{b}}</h2>
+    <!-- <HelloWorld111 ref="hello" class="ABC" v-model="a" msg="Welcome to Your Vue.js App"/> -->
+    <!-- <HelloWorld111 ref="hello" class="ABC" :value="a" @input="data=>a=data" msg="Welcome to Your Vue.js App"/> -->
+    <!-- <HelloWorld111 msg="App" :a1.sync="b"/> -->
+    <HelloWorld111 msg="App" :a1="b" v-on:update:a1="handleSync"/>
   </div>
 </template>
 
@@ -35,6 +37,19 @@ export default {
     console.log('refs',this.$refs.hello)
   },
   methods:{
+    handleSync(data){
+      console.log(111,data)
+      this.b=data
+    },
+    handleClick(){
+      this.$destroy();
+      console.log('handleClick')
+    }
+  },
+  watch:{
+    a(){
+
+    }
   }
 }
 </script>
