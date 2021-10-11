@@ -4,6 +4,7 @@ let timerFunc;
 
 function flushCallbacks () {
   pending = false
+  // 此处正在浅拷贝callbacks数组
   const copies = callbacks.slice(0)
   callbacks.length = 0
   for (let i = 0; i < copies.length; i++) {
@@ -12,6 +13,7 @@ function flushCallbacks () {
 }
 
 if (typeof Promise !== 'undefined') {
+  //返回一个成功的promise对象
   const p = Promise.resolve()
   timerFunc = () => {
     p.then(flushCallbacks)
@@ -20,6 +22,7 @@ if (typeof Promise !== 'undefined') {
 
 
 export function nextTick (cb,vm) {
+  //所有的nextTick共用一个callbacks回调数组,内部存放所有的回调函数cb
   callbacks.push(() => {
     if (cb) {
         cb.call(vm)
@@ -32,21 +35,16 @@ export function nextTick (cb,vm) {
 }
 
 /*
-nextTick源码重点:
-  1.由于nextTick源码中具有开关pending,所以每次调用nextTick都会检测上次是否已经调用过
-    多个nextTick只会开启一个.then微任务，在该微任务中会遍历callbacks数组,
-    调用目前已传入的所有nextTick回调函数
+  nextTick源码重点:
+    1.由于nextTick有开关pending的存在,所以在主线程中无论调用多少次nextTick,都只会开启一个.then
+    2.虽然nextTick只开启一个微任务,但是他会通过for循环遍历callbacks中所有的回调函数,并调用
+    3.Vue更新视图流程
+      1.当用户更新响应式属性时,会触发update方法
+      2.update方法内部会调用queueWatcher函数
+      3.queueWatcher函数会将更新视图的方法交给nextTick,延迟执行
 
-  2.Vue更新状态数据是同步更新,但是更新DOM是异步更新
-    更新的时机是在微任务.then中
-      更新DOM流程:
-        1.当用户修改data中的数据的时候,会触发update方法去更新DOM
-        2.update方法会调用queueWatcher方法
-        3.queueWatcher方法内部会调用nextTick,并将真正更新DOM的方法flushSchedulerQueue,
-          交给nextTick作为回调函数使用
-        4.当项目的主线程代码执行结束,会执行nextTick开启的.then微任务,从而更新视图
-    
-    之所以Vue敢保证nextTick的回调函数一定能获取到最新的DOM结构,
-    是因为更新DOM的函数就在nextTick队列的第一位,而后续交给nextTick的回调函数都会排在他之后执行
+      
+      为什么nextTick的回调函数内部一定能得到最新的DOM节点
+        因为更新视图的本质也是nextTick,所以后执行的nextTick可以获取到前面nextTick执行的结果
+
 */
-
