@@ -1,0 +1,63 @@
+一共具有11个生命周期,常用的是8个
+
+js引擎同时只能做一件事,他是单线程解析的
+初始化阶段
+	beforeCreate(创建之前)
+		beforeCreate之前在初始化事件和生命周期
+
+
+	created(创建结束)
+		发送ajax
+			在此处发送请求,可以更早接收到返回的响应数据
+			可以更早的将有用数据渲染至页面上
+		注意:如果created内部做的事情太耗时,会阻塞页面的渲染
+
+		beforeCreate之后created之前,会初始化数据代理和数据劫持
+
+	beforeMount(挂载之前)
+
+		created之后beforeMount之前,只是将template字符串转换成了render函数
+		也就是说到达当前生命周期,就一定会有render函数
+
+	mounted(挂载结束)
+		发送ajax
+			在此处发送请求,不会阻塞页面渲染,可以更早看到页面
+			但是看到有用数据的时间会比created发送请求来的更慢
+		操作真实DOM
+			Swiper
+			滑动库相关
+		绑定事件总线
+
+		beforeMount之后mounted之前,在调用render函数生成虚拟DOM,在通过虚拟DOM生成真实DOM,替换掉页面上的el元素
+
+更新阶段
+	beforeUpdate(更新之前)
+	updated(更新结束)
+		根据请求回来的数据,会影响到页面的渲染,可能会做一些二次操作真实DOM
+
+卸载阶段
+	beforeDestroy(卸载之前)
+		解绑事件
+			原生事件
+				只要经过了Vue绑定的原生事件是不需要手动解绑的
+				没有经过Vue绑定的,通过原生语法绑定的原生事件,需要手动解绑(onclick,addEventListener)
+			自定义事件
+				平常通过@符号和$on绑定给当前组件自身的自定义事件,不需要手动解绑
+				全局事件总线
+		解绑定时器
+	destroyed(卸载结束)
+
+keep-alive专属
+	activated(激活)
+		被keep-alive组件包裹的组件,生死不由自己定,它将是去初始化和卸载阶段
+		替代初始化阶段生命周期
+	deactivated(失活)
+		替代卸载阶段生命周期
+
+用于捕获后代组件出现的错误(错误边界)
+	errorCaptured
+	Vue.config.errorHandler可以捕获整个项目出现的错误
+
+
+注意:
+	Vue的生命周期使用到了策略模式,每个组件的生命周期都是一个数组,数组内部存放对应的生命周期钩子函数

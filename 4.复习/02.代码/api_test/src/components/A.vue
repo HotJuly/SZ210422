@@ -12,7 +12,23 @@ export default {
     return{
       msg:"我是作用域插槽"
     }
-  }
+  },
+  beforeCreate(){
+    console.log('---------beforeCreate------------') 
+    console.log(this,this.$data,this.msg,this.$el) 
+  },
+  created(){
+    console.log('---------created------------') 
+    console.log(this,this.$data,this.msg,this.$el)
+  },
+  beforeMount(){
+    console.log('---------beforeMount------------') 
+    console.log(this,this.$data,this.msg,this.$el) 
+  },
+  mounted(){
+    console.log('---------mounted------------') 
+    console.log(this,this.$data,this.msg,this.$el) 
+  },
 }
 </script>
 

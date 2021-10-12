@@ -31,6 +31,8 @@ Observer.prototype = {
         // vm._data, "msg", "hello mvvm"
 
         // 目前看来,data中每有一个直系属性就会生成一个Dep的实例对象
+        // 最终总结:data中的每一个属性都会生成一个dep对象
+            // 每一个响应式属性都会对应一个dep对象
         var dep = new Dep();
 
         // 如果属性值是一个对象数据类型,对当前这个对象进行深度递归劫持
@@ -111,11 +113,16 @@ function Dep() {
 
 Dep.prototype = {
     addSub: function(sub) {
+        
+        // dep.addSub(watcher);
         this.subs.push(sub);
+        // dep.subs.push(watcher);
+        // 每个响应式属性都收集了与他相关的插值语法
     },
 
     depend: function() {
         Dep.target.addDep(this);
+        // watcher.addDep(dep);
     },
 
     removeSub: function(sub) {
@@ -129,7 +136,9 @@ Dep.prototype = {
         this.subs.forEach(function(sub) {
             sub.update();
         });
-
+        // this.subs.forEach(function(sub) {
+        //     watcher.update();
+        // });
         
     }
 };

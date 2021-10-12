@@ -1,4 +1,8 @@
 function Watcher(vm, exp, cb) {
+    // vm, "person.name", function(value, oldValue) {
+        //     updaterFn && updaterFn(node, value, oldValue);
+        // }
+    // this=>watcher实例对象
     this.cb = cb;
     this.vm = vm;
     this.exp = exp;
@@ -13,12 +17,15 @@ Watcher.prototype = {
     },
     run: function() {
 
+        // 得到当前persona.name的最新值(atguigu)
         var value = this.get();
 
+        // 得到watcher身上的value,也就是旧的结果(xiaoming)
         var oldVal = this.value;
         if (value !== oldVal) {
             this.value = value;
             this.cb.call(this.vm, value, oldVal);
+            // this.cb.call(vm, atguigu, xiaoming);
         }
     },
     addDep: function(dep) {
@@ -40,12 +47,17 @@ Watcher.prototype = {
         // 例如：当前watcher的是'child.child.name', 那么child, child.child, child.child.name这三个属性的dep都会加入当前watcher
         if (!this.depIds.hasOwnProperty(dep.id)) {
             this.depIds[dep.id] = dep;
+            // watcher收集了与他相关的所有的dep
+            // 插值语法收集了与他相关的所有的响应式属性
 
             dep.addSub(this);
+            // dep.addSub(watcher);
         }
     },
     get: function() {
         Dep.target = this;
+        // this=>watcher实例对象
+        // Dep.target = watcher;
 
         var value = this.getVMVal();
 
@@ -54,12 +66,14 @@ Watcher.prototype = {
     },
 
     getVMVal: function() {
+        // exp=>["person","name"]
         var exp = this.exp.split('.');
 
 
         var val = this.vm._data;
         exp.forEach(function(k) {
             val = val[k];
+            // val = this.vm._data["person"];
         });
         return val;
     }

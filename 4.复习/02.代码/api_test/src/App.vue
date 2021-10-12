@@ -55,11 +55,11 @@ export default {
     // this.$children[0] = this.$children[1];
     // this.$children[1] = temp;
 
-    console.log('refs',this.$refs.hello)
+    // console.log('refs',this.$refs.hello)
   },
   methods:{
     handleSync(data){
-      console.log(111,data)
+      // console.log(111,data)
       this.b=data
     },
     handleClick(){

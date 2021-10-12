@@ -10,7 +10,7 @@
   --></head>
   <body>
     <div id="app">
-      <p>{{person.name}}</p>
+      <p id="a" v-on:click="handleClick">{{person.name}}</p>
     </div>
     <script src="./js/observer.js"></script>
     <script src="./js/watcher.js"></script>
@@ -43,10 +43,16 @@
             name:"xiaoming",
             msg:"123"
           },
+        },
+        methods:{
+          handleClick(){
+            // console.log('handleClick')
+            vm.person.name="atguigu";
+          }
         }
       });
 
-      // vm.msg="atguigu";
+      
       // vm.msg="hello mvvm";
       // vm.msg="hello mvvm";
       // vm.msg="hello mvvm";
