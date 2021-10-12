@@ -2,50 +2,29 @@
   <div id="app" class="B">
     <h1 ref="app" @click="handleClick">APP.VUE</h1>
     <h2 v-once>{{b}}</h2>
-    <!-- <HelloWorld111 msg="App" :a1="b" v-on:update:a1="handleSync"/> -->
-    <!-- <keep-alive> -->
-      <!-- <A v-if="isShow"></A>
-      <B v-else></B> -->
-      <!-- <router-view></router-view>
-    </keep-alive> -->
-    <!-- <component :is="showComponent"></component> -->
-
-    <A>
-      <template v-slot:default>
-        <h1>我是默认插槽</h1>
-      </template>
-      <template v-slot:header>
-        <h1>我是header插槽</h1>
-      </template>
-      <template v-slot:footer="{msg}">
-        <h1>我是footer插槽,{{msg}}</h1>
-      </template>
-    </A>
+    <!-- <HelloWorld111 ref="hello" class="ABC" v-model="a" msg="Welcome to Your Vue.js App"/> -->
+    <!-- <HelloWorld111 ref="hello" class="ABC" :value="a" @input="data=>a=data" msg="Welcome to Your Vue.js App"/> -->
+    <!-- <HelloWorld111 msg="App" :a1.sync="b"/> -->
+    <HelloWorld111 msg="App" :a1="b" v-on:update:a1="handleSync"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import A from './components/A.vue'
-import B from './components/B.vue'
 
 export default {
   name: 'App',
   data(){
     return {
       a:"haha",
-      b:"666",
-      isShow:true,
-      showComponent:A
+      b:"666"
     }
   },
   provide:{
     haha:"123"
   },
   components: {
-    HelloWorld111:HelloWorld,
-    A,
-    B
+    HelloWorld111:HelloWorld
   },
   computed:{
   },
@@ -63,8 +42,8 @@ export default {
       this.b=data
     },
     handleClick(){
-      this.isShow=!this.isShow;
-      // this.showComponent=this.showComponent===A?B:A;
+      this.$destroy();
+      console.log('handleClick')
     }
   },
   watch:{
