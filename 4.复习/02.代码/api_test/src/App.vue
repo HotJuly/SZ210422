@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="B">
     <router-view></router-view>
-    <router-link to="/">A</router-link>
+    <router-link tag="a" path="/home">A</router-link>
     <!-- <router-link to="/about">B</router-link> -->
     <button @click="toB">to B</button>
   </div>
@@ -16,7 +16,7 @@ export default {
   name: 'App',
   methods:{
     toB(){
-      this.$router.push('/about')
+      this.router.push('/about')
     }
   },
 }

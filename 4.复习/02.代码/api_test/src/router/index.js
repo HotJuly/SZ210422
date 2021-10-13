@@ -1,16 +1,17 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import MyRouter from '../july-router';
+// import VueRouter from 'vue-router';
 
 import A from '../components/A.vue';
 import B from '../components/B.vue';
 
-Vue.use(VueRouter);
+Vue.use(MyRouter);
 
-export default new VueRouter({
-    mode:"hash",
+export default new MyRouter({
+    mode:"history",
     routes:[
         {
-            path:"/",
+            path:"/home",
             component:A
         },
         {
