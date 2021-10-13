@@ -1,6 +1,26 @@
 <template>
   <div id="app" class="B">
-    <B></B>
+    <h1 ref="app" @click="handleClick">APP.VUE</h1>
+    <h2 v-once>{{b}}</h2>
+    <!-- <HelloWorld111 msg="App" :a1="b" v-on:update:a1="handleSync"/> -->
+    <!-- <keep-alive> -->
+      <!-- <A v-if="isShow"></A>
+      <B v-else></B> -->
+      <!-- <router-view></router-view>
+    </keep-alive> -->
+    <!-- <component :is="showComponent"></component> -->
+
+    <A>
+      <template v-slot:default>
+        <h1>我是默认插槽</h1>
+      </template>
+      <template v-slot:header>
+        <h1>我是header插槽</h1>
+      </template>
+      <template v-slot:footer="{msg}">
+        <h1>我是footer插槽,{{msg}}</h1>
+      </template>
+    </A>
   </div>
 </template>
 
